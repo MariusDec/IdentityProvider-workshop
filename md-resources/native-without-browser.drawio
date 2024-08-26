@@ -1,0 +1,98 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.7">
+  <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
+    <mxGraphModel dx="996" dy="663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.256;exitDx=0;exitDy=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="520" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="90" y="520" />
+              <mxPoint x="30" y="521" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.404;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=classic;endFill=1;startArrow=none;startFill=0;dashed=1;dashPattern=8 8;flowAnimation=1;entryX=0;entryY=0.404;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="HWKYBD_FSk9Ay644-UqM-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="590" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.98;exitY=0.135;exitDx=0;exitDy=0;entryX=0.013;entryY=0.106;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-1" target="HWKYBD_FSk9Ay644-UqM-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-13" value="&lt;b&gt;(2)&lt;/b&gt; Authorization Challenge&lt;div&gt;Request&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-9">
+          <mxGeometry x="-0.215" relative="1" as="geometry">
+            <mxPoint x="12" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.986;exitY=0.435;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-1" target="HWKYBD_FSk9Ay644-UqM-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-16" value="&lt;b&gt;(4)&lt;/b&gt; Authorization Challenge&lt;div&gt;Request&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-12">
+          <mxGeometry x="-0.1479" y="2" relative="1" as="geometry">
+            <mxPoint x="5" y="-17" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.989;exitY=0.787;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-1" target="HWKYBD_FSk9Ay644-UqM-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-23" value="&lt;b&gt;(6)&lt;/b&gt; Token Request" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-21">
+          <mxGeometry x="-0.1411" y="2" relative="1" as="geometry">
+            <mxPoint x="6" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-1" value="First-Party Client" style="rounded=1;whiteSpace=wrap;html=1;glass=0;shadow=0;strokeColor=default;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="110" y="400" width="140" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-6" value="&lt;b&gt;(1)&lt;/b&gt; Client starts&lt;div&gt;the flow&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="10" y="535" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-7" value="Authorization Server" style="swimlane;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="400" width="200" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-8" value="Authorization Challenge Endpoint" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HWKYBD_FSk9Ay644-UqM-7">
+          <mxGeometry x="20" y="40" width="160" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-20" value="Token Endpoint" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="HWKYBD_FSk9Ay644-UqM-7">
+          <mxGeometry x="20" y="350" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.995;entryY=0.201;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-8" target="HWKYBD_FSk9Ay644-UqM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-14" value="&lt;b&gt;(3)&lt;/b&gt; Authorization Error&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-10">
+          <mxGeometry x="0.1153" y="-2" relative="1" as="geometry">
+            <mxPoint y="28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.003;exitY=0.887;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;dashPattern=8 8;flowAnimation=1;jumpStyle=none;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-8" target="HWKYBD_FSk9Ay644-UqM-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="635" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-19" value="&lt;b&gt;(5)&lt;/b&gt; Authorization Code&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-11">
+          <mxGeometry x="0.1773" y="-1" relative="1" as="geometry">
+            <mxPoint x="7" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-15" value="" style="shape=waypoint;sketch=0;size=6;pointerEvents=1;points=[];fillColor=none;resizable=0;rotatable=0;perimeter=centerPerimeter;snapToPoint=1;strokeWidth=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="535" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-17" value="" style="shape=waypoint;sketch=0;size=6;pointerEvents=1;points=[];fillColor=none;resizable=0;rotatable=0;perimeter=centerPerimeter;snapToPoint=1;strokeWidth=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="545" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-18" value="" style="shape=waypoint;sketch=0;size=6;pointerEvents=1;points=[];fillColor=none;resizable=0;rotatable=0;perimeter=centerPerimeter;snapToPoint=1;strokeWidth=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="555" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.015;entryY=0.831;entryDx=0;entryDy=0;entryPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="HWKYBD_FSk9Ay644-UqM-20" target="HWKYBD_FSk9Ay644-UqM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HWKYBD_FSk9Ay644-UqM-24" value="&lt;b&gt;(7)&lt;/b&gt; Access Token" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="HWKYBD_FSk9Ay644-UqM-22">
+          <mxGeometry x="0.0925" y="-3" relative="1" as="geometry">
+            <mxPoint x="-2" y="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

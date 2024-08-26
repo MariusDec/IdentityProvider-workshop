@@ -92,7 +92,7 @@
 * The advantage of this process is that the autorization requests that use the browser are more secure and can take advantage of the users authentication state. This enables the use the authentication session in the browser to enable single sign-on, as users don't need to authenticate to the authorization server each time they use a new app.
 * Recommended to use the system browser instead of a browser window embeded in the application, offers better security.
 
-<img src="file:///./md-resources/native-with-browser.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/native-with-browser.drawio.svg" title="" alt="drawio" data-align="center">
 
 1. Client app opens a browser tab with the authorization request.
 2. Authorization endpoint receives the authorization request, authenticates the user, and obtains authorization. Authenticating the user may involve chaining to other authentication systems.
@@ -113,7 +113,7 @@
 * The client sends the authorization code received to obtain a token from the Token endpoint
 * The authorization server sends an Access Token
 
-<img src="file:///./md-resources/native-without-browser.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/native-without-browser.drawio.svg" title="" alt="drawio" data-align="center">
 
 1. The first-party client starts the flow, by presenting the user with a "sign in" button, or collecting information from the user, such as their email address or username.
 2. The client initiates the authorization request by making a POST request to the Authorization Challenge Endpoint, optionally with information collected from the user (e.g. email or username)
@@ -162,7 +162,7 @@
   * Access denied: the authorization request was denied
   * Expired token: the device code has exired and the authorization session must be concluded. The client may commence a new device authorization request, but should wait for user interaction before restarting, to avoid unnecessary polling.
 
-<img src="file:///./md-resources/input-constrained-devices.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/input-constrained-devices.drawio.svg" title="" alt="drawio" data-align="center">
 
 1. The client requests access from the authorization server and includes its client identifier in the request.
 

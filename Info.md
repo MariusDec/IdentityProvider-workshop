@@ -92,7 +92,7 @@
 * The advantage of this process is that the autorization requests that use the browser are more secure and can take advantage of the users authentication state. This enables the use the authentication session in the browser to enable single sign-on, as users don't need to authenticate to the authorization server each time they use a new app.
 * Recommended to use the system browser instead of a browser window embeded in the application, offers better security.
 
-<img src="./md-resources/native-with-browser.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/native-with-browser.drawio.svg" title="native application using browser flowchart" alt="drawio" data-align="center">
 
 1. Client app opens a browser tab with the authorization request.
 2. Authorization endpoint receives the authorization request, authenticates the user, and obtains authorization. Authenticating the user may involve chaining to other authentication systems.
@@ -113,7 +113,7 @@
 * The client sends the authorization code received to obtain a token from the Token endpoint
 * The authorization server sends an Access Token
 
-<img src="./md-resources/native-without-browser.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/native-without-browser.drawio.svg" title="native application without using browser flowchart" alt="drawio" data-align="center">
 
 1. The first-party client starts the flow, by presenting the user with a "sign in" button, or collecting information from the user, such as their email address or username.
 2. The client initiates the authorization request by making a POST request to the Authorization Challenge Endpoint, optionally with information collected from the user (e.g. email or username)
@@ -128,17 +128,22 @@
 
 ##### Single Sign-On (SSO)
 
-* 
+* s
 
-
-## Input constrained devices
+##  Input constrained devices
 
 * This refers to internet-connected devices that either lack a browser or are input constrained (like smart TVs, media consoles, digital picture frames, printers, etc.)
+
 * These devices should use **Device Authorization Grant** to obtain a JWT token
+
 * Instead of interacting directly with the end user's user agent (i.e., browser), the device client instructs the end user to use another computer or device and connect to the authorization server to approve the access request.
+
 * Since the protocol supports clients that can't receive incoming requests, clients poll the authorization server repeatedly until the end user completes the approval process.
+
 * Even if the device displays a Qr code to be scanned by the user device (e.g. smartphone), it is recommended to still display the verification URI for users who are not able to scan the Qr code
+
 * Due to the polling nature of this protocol, care is needed to avoid overloading the capacity of the token endpoint
+
 * The client should only start a device authorization request when prompted by the user and not automatically, such as when the app starts or when the previous authorization session expires or fails
 
 ##### Requirements
@@ -162,22 +167,15 @@
   * Access denied: the authorization request was denied
   * Expired token: the device code has exired and the authorization session must be concluded. The client may commence a new device authorization request, but should wait for user interaction before restarting, to avoid unnecessary polling.
 
-<img src="./md-resources/input-constrained-devices.drawio.svg" title="" alt="drawio" data-align="center">
+<img src="./md-resources/input-constrained-devices.drawio.svg" title="input constrained devices flowchart" alt="drawio" data-align="center">
 
 1. The client requests access from the authorization server and includes its client identifier in the request.
-
 2. The authorization server issues a device code and an end-user code and provides the end-user verification URI.
-
 3. The client instructs the end user to use a user agent on another device and visit the provided end-user verification URI. The client provides the user with the end-user code to enter in order to review the authorization request.
-
 4. The authorization server authenticates the end user (via the user agent), and prompts the user to input the user code provided by the device client. The authorization server validates the user code provided by the user, and prompts the user to accept or decline the request.
-
 5. While the end user reviews the client's request (**step 4**), the client repeatedly polls the authorization server to find out if the user completed the user authorization step. The client includes the device code and its client identifier.
-
 6. The authorization server validates the device code provided by the client and responds with the access token if the client is granted access, an error if they are denied access, or an indication that the client should continue to poll.
 
 ---
 
 > The way i did it is that the user gets tokens whenever they do a request. so every request uses the tokens from the previous request and then get replaced with the tokens from the current request, so they are ready for the next request. the tokens are only valid for 1 request so thats why every request must change the tokens.
-
-

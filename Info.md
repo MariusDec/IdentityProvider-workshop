@@ -70,14 +70,65 @@
 
 ## Browser-based applications
 
+* See more: [OAuth 2.0 for Browser-Based Applications](https://www.ietf.org/archive/id/draft-ietf-oauth-browser-based-apps-14.html).
 * Browser-based applications are and should be considered very insecure.
+* The application is considered a public client, since there is no way to provision it a client secret in this model.
+* Must implement PKCE when obtaining an access token, and authorization servers must support and enforce PKCE for such clients.
+* Must register one or more redirect URIs with the authorization server, and use only exact registered redirect URIs in the authorization server request.
+
+##### Obtain a JWT token directly
+
+* This is the least secure way of obtaining a JWT token.
+* Besides the general risks of XSS, if tokens are stored or handled directly by the browser, XSS poses an additional risk of token exfiltration. 
+* The application is responsible for storing the access token (and optional refresh token) as securely as possible using the appropriate browser APIs.
+* The Autorization Server and Resource Server must support the necessary CORS headers.
+
+<img title="browser-based application" src="./md-resources/browser-based-directly.drawio.svg" alt="browser-based application" data-align="center">
+
+1. The JS code is first loaded from a static web host into the browser **(A)**. 
+2. The code in the browser initiates the Authorization Code flow with the PKCE extension **(B)**.
+3. The application obtains an access token via a POST request **(C)**.
+4. When the application whats to make a request to the Resource Server, it can interact with the Resource Server directly. It includes an access token in the request **(D)** and receives the Resource Server's response **(E)**.
+   
+   
+
+##### Obtain a JWT using Service Worker
+
+* This is a more secure method of obtaining and storing the JWT tokens than obtaining them directly in the browser.
+* Service Workers are run in a separate context from the DOM, have no access to the DOM, and the DOM has no access to the Service Worker or the memory of the Service Worker.
+* The Service Worker is the most secure place in browser to acquire and store tokens, as an XSS attack would be unable to exfiltrate the tokens.
+* If you store the tokens in the Service Worker memory (there's no filesystem API for Service Worker yet), the Service Worker [might be killed by the browser in some situations](https://www.w3.org/TR/service-workers/#service-worker-lifetime), so that case needs to be taken into account. 
+* In this architecture, a Service Worker intercepts calls from the frontend to the resource server. As such, it completely isolates calls to the authorization server from XSS attack surface, as all tokens are safely kept in the service worker context without any access from other JavaScript contexts. The service worker is then solely responsible for adding the token in the authorization header to calls to the resource server.
+
+<img title="browser-based application using service worker" src="./md-resources/browser-based-service-worker.drawio.svg" alt="browser-based application using service worker" data-align="center">
+
+###### Implementation Guidelines
+
+* The Service Worker must initiate the OAuth 2.0 Authorization Code grant with PKCE itself.
+* The Service Worker must intercept the authorization code when the Authorization Server redirects to the application.
+* The Service Worker must then initiate the token request itself.
+* The Service Worker must not transmit tokens, authorization codes or PKCE code verifier to the application.
+* The Service Worker must block authorization requests and token requests initiating from the application in order to avoid any front-end side-channel for getting tokens. The only way of starting the authorization flow should be through the service worker. This protects against re-authorization from XSS-injected code.
+* The user must register the Service Worker before running any code interacting with the user.
+  
+  
+
+##### Obtain a JWT using Backend-For-Frontend (BFF) Proxy
+
+* In this scenario, the connection between the browser and the BFF proxy should be a session cookie provided by the BFF proxy.
+* While the security of this model is strong, since the OAuth tokens are never sent to the browser, there are performance and scalability implications of deploying a BFF proxy server and routing all JS requests through the server.
 * *[TODO]*
+  
+  
+  
+  
 
-##### Obtain a JWT token
+##### Obtain a JWT using Token-Mediating Backend
 
+* This is an alternative to a ful BFF, where all all resource requests are done directly through the browser, the token-mediating backend only handles obtaining the tokens and forwards them to the browser.
 * *[TODO]*
-
-
+  
+  
 
 ## Native Applications
 
@@ -91,7 +142,7 @@
 * The advantage of this process is that the authorization requests that use the browser are more secure and can take advantage of the user's authentication state. This enables the use of the authentication session in the browser to enable single sign-on, as users don't need to authenticate to the authorization server each time they use a new app.
 * It is recommended to use the system browser instead of a browser window embedded in the application, it offers better security.
 
-<img title="native application using browser flowchart" src="./md-resources/native-with-browser.drawio.svg" alt="drawio" data-align="center">
+<img title="native application using browser flowchart" src="./md-resources/native-with-browser.drawio.svg" alt="native application using browser flowchart" data-align="center">
 
 1. The Client app opens a browser tab with the authorization request.
 2. The authorization endpoint receives the authorization request, authenticates the user, and obtains authorization. Authenticating the user may involve chaining to other authentication systems.
@@ -112,7 +163,7 @@
 * The client sends the authorization code received to obtain a token from the Token endpoint.
 * The authorization server sends an Access Token.
 
-<img title="native application without using browser flowchart" src="./md-resources/native-without-browser.drawio.svg" alt="drawio" data-align="center">
+<img title="native application without using browser flowchart" src="./md-resources/native-without-browser.drawio.svg" alt="native application without using browser flowchart" data-align="center">
 
 1. The first-party client starts the flow, by presenting the user with a "sign in" button, or collecting information from the user, such as their email address or username.
 2. The client initiates the authorization request by making a POST request to the Authorization Challenge Endpoint, optionally with information collected from the user (e.g., email or username).
@@ -128,8 +179,8 @@
 ##### Single Sign-On (SSO)
 
 * *[TODO]*
-
-
+  
+  
 
 ## Input constrained devices
 
@@ -162,7 +213,7 @@
   * Access denied: the authorization request was denied.
   * Expired token: the device code has expired and the authorization session must be concluded. The client may commence a new device authorization request but should wait for user interaction before restarting, to avoid unnecessary polling.
 
-<img title="input constrained devices flowchart" src="./md-resources/input-constrained-devices.drawio.svg" alt="drawio" data-align="center">
+<img title="input constrained devices flowchart" src="./md-resources/input-constrained-devices.drawio.svg" alt="input constrained devices flowchart" data-align="center">
 
 1. The client requests access from the authorization server and includes its client identifier in the request.
 2. The authorization server issues a device code and an end-user code and provides the end-user verification URI.

@@ -1,0 +1,66 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.7">
+  <diagram name="Page-1" id="CCu--nh41Ni4cJ9Mc_jX">
+    <mxGraphModel dx="753" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="H_UikKaL_ApKkadLlBf3-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="H_UikKaL_ApKkadLlBf3-1" target="H_UikKaL_ApKkadLlBf3-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-12" value="&lt;b&gt;(A)&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="H_UikKaL_ApKkadLlBf3-5">
+          <mxGeometry x="-0.175" y="1" relative="1" as="geometry">
+            <mxPoint y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-1" value="Static Web Host" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.292;entryY=-0.017;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;startArrow=classic;startFill=1;" edge="1" parent="1" source="H_UikKaL_ApKkadLlBf3-2" target="H_UikKaL_ApKkadLlBf3-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="287" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-14" value="&lt;b&gt;(C)&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="H_UikKaL_ApKkadLlBf3-8">
+          <mxGeometry x="0.0139" y="2" relative="1" as="geometry">
+            <mxPoint x="-12" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-2" value="Authorization Server" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.901;entryY=-0.057;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="H_UikKaL_ApKkadLlBf3-3" target="H_UikKaL_ApKkadLlBf3-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-16" value="&lt;b&gt;(E)&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="H_UikKaL_ApKkadLlBf3-11">
+          <mxGeometry x="-0.0828" y="-1" relative="1" as="geometry">
+            <mxPoint x="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-3" value="Resource Server" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" target="H_UikKaL_ApKkadLlBf3-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="349" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-13" value="&lt;b&gt;(B)&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="H_UikKaL_ApKkadLlBf3-7">
+          <mxGeometry x="-0.0541" y="1" relative="1" as="geometry">
+            <mxPoint x="11" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.71;exitY=-0.003;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;startArrow=none;startFill=0;dashed=1;dashPattern=8 8;flowAnimation=1;" edge="1" parent="1" source="H_UikKaL_ApKkadLlBf3-4" target="H_UikKaL_ApKkadLlBf3-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-15" value="&lt;b&gt;(D)&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="H_UikKaL_ApKkadLlBf3-10">
+          <mxGeometry x="0.0122" y="3" relative="1" as="geometry">
+            <mxPoint x="13" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="H_UikKaL_ApKkadLlBf3-4" value="Browser" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="350" width="310" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

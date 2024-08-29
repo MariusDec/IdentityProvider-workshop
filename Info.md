@@ -115,20 +115,50 @@
 
 ##### Obtain a JWT using Backend-For-Frontend (BFF) Proxy
 
-* In this scenario, the connection between the browser and the BFF proxy should be a session cookie provided by the BFF proxy.
+* The connection between the browser and the BFF proxy should be a session cookie provided by the BFF proxy.
 * While the security of this model is strong, since the OAuth tokens are never sent to the browser, there are performance and scalability implications of deploying a BFF proxy server and routing all JS requests through the server.
-* *[TODO]*
-  
-  
+* The BFF proxy is not the Resource Server, is the OAuth client that would be accessing the data from the Resource Server for the browser-based application.
+* The BFF proxy should be considered a confidential client, and issued its own client secret.
+* The BFF proxy should use the OAuth 2.0 Authorization Code grant with PKCE to initiate a request for an access token.
+* The BFF proxy will store the access token and refresh token internally. The browser-based application will never receive the access token.
+
+<img title="browser-based application using bff" src="./md-resources/browser-based-bff.drawio.svg" alt="browser-based application using bff" data-align="center">
+
+* The BFF proxy initiates the OAuth flow itself, by redirecting the browser to the authorization endpoint **(1)**.
+* When the user is redirected back with the Authorization Code **(2)**, the browser delivers the authorization code to the BFF Proxy **(3)**.
+* The BFF proxy sends the authorization code to the Token Endpoint **(4)** using its client secret and PKCE code verifier and receives an access token **(5)**.
+* The BFF proxy keeps the access token and refresh token stored internally and creates a separate session with the browser-based application via a traditional browser cookie **(6)**.
+* When the browser-based application wants to make a request to the Resource Server, it instead makes the request to the BFF proxy **(7)**.
+* The BFF proxy will make the request with the access token to the Resource Server **(8)** and **(9)** and forward the response **(10)** back to the browser.
   
   
 
 ##### Obtain a JWT using Token-Mediating Backend
 
+* A proposal for implementing the TMI-BFF can be found here: [Token Mediating and session Information Backend For Frontend](https://datatracker.ietf.org/doc/html/draft-bertocci-oauth2-tmi-bff-01).
 * This is an alternative to a ful BFF, where all all resource requests are done directly through the browser, the token-mediating backend only handles obtaining the tokens and forwards them to the browser.
-* *[TODO]*
-  
-  
+* Routing every API call through a backend can be expensive in terms of performance and latency. Routing only the token acquisition through a backend means fewer requests are made to the backend, improving performance and reducing latency of the requests made from the frontend, and reducing the amount of infrastructure needed in the backend.
+* The Token-Mediating Backend should be considered a confidential client, and issued its own client secret.
+* The Token-Mediating Backend should use the OAuth 2.0 Authorization Code grant with PKCE to initiate a request for an access token.
+* The connection between the browser and the Token-Mediating Backend should be a session cookie provided by the BFF proxy.
+* The frontend should not persist tokens in local storage or similar mechanisms; instead, the frontend shouldstore tokens only in memory, and make a new request to the backend if no tokens exist. This provides fewer attack vectors for token exfiltration should an XSS attack be successful.
+* The Token-Mediating Backend should cache the access token and refresh token.
+
+<img title="browser-based application using tmi-bff" src="./md-resources/browser-based-tmi-bff.drawio.svg" alt="browser-based application using tmi-bff" data-align="center">
+
+1. The frontend presents to the backend a request for an access token for a given resource server
+
+2. If the backend does not already have a suitable access token obtained in the previous flow and cached, it requests to the authorization server a new access token with the required characteristics (eventually using the refresh token).
+
+3. The authorization server returns the requested token and any additional information according to the grant used.
+
+4. The backend returns the requested access token to the browser-based application
+
+5. The browser-based application presents the access token to the resource server
+
+6. The resource server validates the incoming token and returns the protected resource
+   
+   
 
 ## Native Applications
 
@@ -221,3 +251,11 @@
 4. The authorization server authenticates the end user (via the user agent), and prompts the user to input the user code provided by the device client. The authorization server validates the user code provided by the user, and prompts the user to accept or decline the request.
 5. While the end user reviews the client's request (**step 4**), the client repeatedly polls the authorization server to find out if the user completed the user authorization step. The client includes the device code and its client identifier.
 6. The authorization server validates the device code provided by the client and responds with the access token if the client is granted access, an error if they are denied access, or an indication that the client should continue to poll.
+   
+   
+
+# Security
+
+* Security considerations: [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org).
+
+

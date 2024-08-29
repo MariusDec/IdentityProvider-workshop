@@ -1,0 +1,110 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0" version="24.7.7">
+  <diagram name="Page-1" id="UJcjWKoQjNmoq0MfFlIu">
+    <mxGraphModel dx="996" dy="663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.097;exitY=-0.04;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-1" target="mF4ehYX-HLpuMEpIdty8-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-8" value="&lt;b&gt;(1) &lt;/b&gt;Authorization Code&lt;div&gt;Request&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-6">
+          <mxGeometry x="0.3019" y="1" relative="1" as="geometry">
+            <mxPoint x="-29" y="163" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.417;exitY=-0.05;exitDx=0;exitDy=0;entryX=0.068;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-1" target="glIkOdPxZU8p1S354e8d-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-14" value="&lt;b&gt;(3) &lt;/b&gt;Request Access Token&lt;div&gt;using Authorization Code&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-10">
+          <mxGeometry x="-0.0774" relative="1" as="geometry">
+            <mxPoint x="-23" y="-28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.793;exitY=0.01;exitDx=0;exitDy=0;entryX=0.668;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-1" target="glIkOdPxZU8p1S354e8d-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-16" value="&lt;b&gt;(7)&amp;nbsp;&lt;/b&gt;Resource&lt;div&gt;Request&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-12">
+          <mxGeometry x="0.0164" y="1" relative="1" as="geometry">
+            <mxPoint x="-13" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-1" value="Browser-Based Application" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="530" width="510" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.873;entryY=0.007;entryDx=0;entryDy=0;entryPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-2" target="glIkOdPxZU8p1S354e8d-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-3" value="&lt;b&gt;(9)&amp;nbsp;&lt;/b&gt;Protected Resource&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-2">
+          <mxGeometry x="-0.2478" y="3" relative="1" as="geometry">
+            <mxPoint y="54" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-2" value="Resource Server" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="100" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.096;exitY=-0.02;exitDx=0;exitDy=0;dashed=1;dashPattern=8 8;flowAnimation=1;exitPerimeter=0;" parent="1" source="glIkOdPxZU8p1S354e8d-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="391" y="162" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-13" value="&lt;b&gt;(4)&lt;/b&gt;&amp;nbsp;Token&lt;div&gt;Request&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="glIkOdPxZU8p1S354e8d-9" vertex="1" connectable="0">
+          <mxGeometry x="0.0171" y="2" relative="1" as="geometry">
+            <mxPoint x="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-1" value="&lt;b&gt;(8)&amp;nbsp;&lt;/b&gt;Protected Resource&lt;div&gt;Request&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" target="glIkOdPxZU8p1S354e8d-2">
+          <mxGeometry x="0.4751" relative="1" as="geometry">
+            <mxPoint x="560" y="350" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.528;entryY=-0.03;entryDx=0;entryDy=0;flowAnimation=1;dashed=1;dashPattern=8 8;entryPerimeter=0;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-3" target="glIkOdPxZU8p1S354e8d-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-15" value="&lt;b&gt;(6)&lt;/b&gt;&amp;nbsp;Receive Session&lt;div&gt;Cookie&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-11">
+          <mxGeometry x="0.0177" y="-1" relative="1" as="geometry">
+            <mxPoint x="26" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-3" value="Backend For Frontend" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="360" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.617;exitY=0.953;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;flowAnimation=1;exitPerimeter=0;" parent="1" source="glIkOdPxZU8p1S354e8d-4" target="glIkOdPxZU8p1S354e8d-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-14" value="&lt;b&gt;(5)&lt;/b&gt;&amp;nbsp;Token&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="glIkOdPxZU8p1S354e8d-10" vertex="1" connectable="0">
+          <mxGeometry x="-0.0779" y="7" relative="1" as="geometry">
+            <mxPoint x="4" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-5" value="Authorization Server" style="swimlane;whiteSpace=wrap;html=1;startSize=23;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="60" width="340" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-4" value="Authorization Endpoint" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="mF4ehYX-HLpuMEpIdty8-5">
+          <mxGeometry x="20" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="glIkOdPxZU8p1S354e8d-4" value="Token Endpoint" style="rounded=1;whiteSpace=wrap;html=1;" parent="mF4ehYX-HLpuMEpIdty8-5" vertex="1">
+          <mxGeometry x="180" y="40" width="145" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.216;entryY=-0.05;entryDx=0;entryDy=0;entryPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="mF4ehYX-HLpuMEpIdty8-4" target="glIkOdPxZU8p1S354e8d-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-9" value="&lt;b&gt;(2)&lt;/b&gt;&amp;nbsp;Authorization Code&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-7">
+          <mxGeometry x="-0.1775" y="-2" relative="1" as="geometry">
+            <mxPoint x="22" y="-99" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.823;exitY=1.047;exitDx=0;exitDy=0;exitPerimeter=0;flowAnimation=1;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="glIkOdPxZU8p1S354e8d-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="623" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mF4ehYX-HLpuMEpIdty8-17" value="&lt;b&gt;(10)&lt;/b&gt;&amp;nbsp;Resource&lt;div&gt;Response&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="mF4ehYX-HLpuMEpIdty8-13">
+          <mxGeometry x="-0.2026" y="-6" relative="1" as="geometry">
+            <mxPoint x="23" y="23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -2,7 +2,7 @@
 
 ## JWT Token
 
-* [See more: OAuth 2.0 for Browser-Based Applications](https://www.ietf.org/archive/id/draft-ietf-oauth-browser-based-apps-14.html).
+* See more: [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html).
 * Web apps should use redirect-based flow.
 * Strong protection mechanisms should be put in place.
 * Need to be manually added to the HTTP request headers.
@@ -37,9 +37,22 @@
   * Stored in a cookie / local storage / session storage, or IndexedDB - easy to steal from JS or from the underlying filesystem.
 * If the IdP supports this, it might be worth using a sender-constrained token.
   * A mechanism for this would be [DPoP (Demonstrating Proof-of-Possession)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop).
+  * Steps for implementing DPoP: [How DPoP Works: A Guide to Proof of Possession for Web Tokens](https://www.0xkishan.com/blogs/how-dpop-works-a-guide-to-proof-of-possession-for-web-tokens)
   * A private key should be used by the client; the public key should be included in the DPoP header, to prove the ownership of the JWT/refresh tokens.
-  * The storage considerations move to securing the private key, similar to the issues with storing the JWT.
+  * The client:
+    * Includes the public key in the JWT header when requesting an access token from the Authorization Server
+    * Includes a signature in the JWT header encrypted with the private key (that is checked by the Authorization Server)
+    * Encrypts the JWT token payload using the private key (to be decrypted using the public key)
+  * The Authorization Server:
+    * Verifies the signature in the JWT header using the public key
+    * Encrypts the access token using the public key
+  * The Resource Server:
+    * Verifies the signature in the JWT header using the public key
+    * Compares the access token's jkt with the DPoP header's public key
   * The advantage is that if a malicious actor steals the JWT token, the actor wouldn't be able to do anything without the private key, which makes impersonation a bit more difficult.
+  * The storage considerations move to securing the private key, similar to the issues with storing the JWT.
+
+<img title="Demonstrating Proof-of-Possession flow" src="./md-resources/dpop.png" alt="Demonstrating Proof-of-Possession flow" data-align="center">
 
 ---
 
@@ -208,9 +221,8 @@
 
 ##### Single Sign-On (SSO)
 
-* *[TODO]*
-  
-  
+* See more: ***[TODO]***
+* 
 
 ## Input constrained devices
 
@@ -257,5 +269,7 @@
 # Security
 
 * Security considerations: [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org).
+* [Recommendations](#recommendations)
+* [JWT Security Best Practices](https://curity.io/resources/learn/jwt-best-practices/#:~:text=JWT%20Security%20Best%20Practices%201%201.%20JWTs%20Used,Best%20Practices%20for%20Using%20Claims%20...%20More%20items)
 
 

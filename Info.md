@@ -9,36 +9,36 @@
 
 ##### Advantages
 
-- Refresh tokens - the JWT tokens could be set to a lower lifetime and use a refresh token to get a new JWT token (that should also be limited in life).
-- Stateless Authentication - enables scaling and easier load balancing, the server does not have to keep track of the session status for each user
-- Support - many already existing libraries support working with JWTs.
-- Authorization - the server decides in the JWTs what each user can do, like user roles and permissions.
-- CORS - for communication across different origins.
+- Refresh tokens—the JWT tokens could be set to a lower lifetime and use a refresh token to get a new JWT token (that should also be limited in life).
+- Stateless Authentication—enables scaling and easier load balancing, the server does not have to keep track of the session status for each user
+- Support—many already existing libraries support working with JWTs.
+- Authorization—the server decides in the JWTs what each user can do, like user roles and permissions.
+- CORS—for communication across different origins.
 
-##### Disatvantages
+##### Disadvantages
 
 * Need to be manually added to the HTTP request headers.
-* Security risk - vulnerable to XSS attacks, token exfiltration, and redirect-based attacks (when using redirect-based flow, which is required for web applications).
-* Size - JWTs are generally larger, containing all the claims relevant to the user.
-* Absence of revocation on server side - there's no proper revocation mechanism for JWT tokens (except keeping a blacklist registry or having a very short lifetime).
-* Restricted updates - JWT tokens cannot typically be updated after being emitted, like updated roles or permissions, without having the user sign in again.
+* Security risk—vulnerable to XSS attacks, token exfiltration, and redirect-based attacks (when using redirect-based flow, which is required for web applications).
+* Size—JWTs are generally larger, containing all the claims relevant to the user.
+* Absence of revocation on server side—there's no proper revocation mechanism for JWT tokens (except keeping a blacklist registry or having a very short lifetime).
+* Restricted updates—JWT tokens cannot typically be updated after being emitted, like updated roles or permissions, without having the user sign in again.
 
 ##### Recommendations
 
 * Limit the scopes to the minimum the user needs.
 * Implement HTTPS-only requirement.
-* Use CSRF defences by doing either of the following:  
+* Use CSRF defenses by doing either of the following:  
   * Ensuring the authorization server supports PKCE.
   * By using the OAuth 2.0 "state" parameter or the OpenID Connect "nonce" parameter to carry one-time use CSRF tokens.
 * Storing the token (in order of security):  
-  * Should ideally be in a Service Worker, that intercepts the application requests and handles authentication and appending the proper headers automatically. The web worker could be closed unexpectedly by the browser, so that should be taken into consideration.  
+  * Should ideally be in a Service Worker that intercepts the application requests and handles authentication and appending the proper headers automatically. The browser could close the web worker unexpectedly, so that should be taken into consideration.  
   * Should be stored in memory only, in a clojure variable rather than an object property.
   * Stored in encrypted format using WebCrypto API.
   * Stored in a cookie / local storage / session storage, or IndexedDB - easy to steal from JS or from the underlying filesystem.
 * If the IdP supports this, it might be worth using a sender-constrained token.
   * A mechanism for this would be [DPoP (Demonstrating Proof-of-Possession)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-dpop).
   * Steps for implementing DPoP: [How DPoP Works: A Guide to Proof of Possession for Web Tokens](https://www.0xkishan.com/blogs/how-dpop-works-a-guide-to-proof-of-possession-for-web-tokens)
-  * A private key should be used by the client; the public key should be included in the DPoP header, to prove the ownership of the JWT/refresh tokens.
+  * The client should use a private key; the public key should be included in the DPoP header to prove the ownership of the JWT/refresh tokens.
   * The client:
     * Includes the public key in the JWT header when requesting an access token from the Authorization Server
     * Includes a signature in the JWT header encrypted with the private key (that is checked by the Authorization Server)
@@ -52,6 +52,41 @@
   * The advantage is that if a malicious actor steals the JWT token, the actor wouldn't be able to do anything without the private key, which makes impersonation a bit more difficult.
   * The storage considerations move to securing the private key, similar to the issues with storing the JWT.
 
+#### PKCE (Proof Key for Code Exchange)
+
+* PKCE (pronounced "pixy") is a security enhancement to the OAuth 2.0 Authorization Code Flow, originally made for mobile and public clients (like JavaScript apps) that can't store secrets securely.
+
+1. Generate a Code Verifier - A random string (e.g. 43-128 characters). This is kept secret and only the client knows it.
+2. Create a Code Challenge - Apply SHA-256 to the verifier and Base64URL-encode the result. This challenge is sent with the login request.
+3. Redirect User to Authorization Server - Include the code challenge and say you're using S256 as the method.
+4. User Logs In → Authorization Code is returned - The server stores the challenge temporarily.
+5. Client Sends Token Request - Now the client sends:
+   * The received authorization code
+   * The original code verifier
+6. Server Verifies - Server hashes the verifier, compares it to the original challenge, and if it matches, it gives you the token.
+
+#### DPoP (Demonstrating Proof-of-Possession)
+
+* DPoP is a way to prove that the client using an access token is the same one that originally got it.
+* Normally in OAuth, anyone who gets an access token can use it (like a bearer token). That's risky. If a token is stolen, it could be reused by an attacker.
+* DPoP fixes this by binding the token to a specific client — like stamping it with a digital fingerprint that only your app can produce.
+
+1. Generate a Key Pair (private and public key)
+   * The client creates a public/private key pair. The private key stays secret.
+2. Create a DPoP Proof JWT
+   * For each request, the client signs a short-lived JWT (called the "DPoP proof") using the private key.
+3. Send Proof with Requests
+   * The DPoP JWT is sent with the request in the DPoP HTTP header.
+     When getting the token and when using it.
+4. Token is Bound to Key
+   * The authorization server includes a special cnf (confirmation) claim in the access token, saying it’s only valid when used with the original key.
+5. Resource Server Verifies
+   * Every time you make an API call with the token, you must also send a new DPoP proof. The resource server checks:
+     * The JWT signature
+     * That the public key matches the one bound to the token
+     * That the HTTP method and URL match
+     * That it's not expired or reused
+
 <img title="Demonstrating Proof-of-Possession flow" src="./md-resources/dpop.png" alt="Demonstrating Proof-of-Possession flow" data-align="center">
 
 ---
@@ -64,7 +99,7 @@
 * Are automatically sent to the server on each request.
 * The authentication is stored server-side (stateful server), which makes revoking a user session easy.
 
-##### Disatvantages
+##### Disadvantages
 
 * Cookies are always sent with the requests, even when you don't want to.
 * Do not work for cross-origin authentication or SSO.
@@ -91,25 +126,23 @@
 
 ##### Obtain a JWT token directly
 
-* This is the least secure way of obtaining a JWT token.
+* This is the least secure way of getting a JWT token.
 * Besides the general risks of XSS, if tokens are stored or handled directly by the browser, XSS poses an additional risk of token exfiltration. 
 * The application is responsible for storing the access token (and optional refresh token) as securely as possible using the appropriate browser APIs.
-* The Autorization Server and Resource Server must support the necessary CORS headers.
+* The Authorization Server and Resource Server must support the necessary CORS headers.
 
 <img title="browser-based application" src="./md-resources/browser-based-directly.drawio.svg" alt="browser-based application" data-align="center">
 
 1. The JS code is first loaded from a static web host into the browser **(A)**. 
 2. The code in the browser initiates the Authorization Code flow with the PKCE extension **(B)**.
-3. The application obtains an access token via a POST request **(C)**.
-4. When the application whats to make a request to the Resource Server, it can interact with the Resource Server directly. It includes an access token in the request **(D)** and receives the Resource Server's response **(E)**.
-   
-   
+3. The application gets an access token via a POST request **(C)**.
+4. When the application what's to make a request to the Resource Server, it can interact with the Resource Server directly. It includes an access token in the request **(D)** and receives the Resource Server's response **(E)**.
 
 ##### Obtain a JWT using Service Worker
 
-* This is a more secure method of obtaining and storing the JWT tokens than obtaining them directly in the browser.
+* This is a more secure method of getting and storing the JWT tokens than getting them directly in the browser.
 * Service Workers are run in a separate context from the DOM, have no access to the DOM, and the DOM has no access to the Service Worker or the memory of the Service Worker.
-* The Service Worker is the most secure place in browser to acquire and store tokens, as an XSS attack would be unable to exfiltrate the tokens.
+* The Service Worker is the most secure place in the browser to acquire and store tokens, as an XSS attack would be unable to exfiltrate the tokens.
 * If you store the tokens in the Service Worker memory (there's no filesystem API for Service Worker yet), the Service Worker [might be killed by the browser in some situations](https://www.w3.org/TR/service-workers/#service-worker-lifetime), so that case needs to be taken into account. 
 * In this architecture, a Service Worker intercepts calls from the frontend to the resource server. As such, it completely isolates calls to the authorization server from XSS attack surface, as all tokens are safely kept in the service worker context without any access from other JavaScript contexts. The service worker is then solely responsible for adding the token in the authorization header to calls to the resource server.
 
@@ -120,11 +153,9 @@
 * The Service Worker must initiate the OAuth 2.0 Authorization Code grant with PKCE itself.
 * The Service Worker must intercept the authorization code when the Authorization Server redirects to the application.
 * The Service Worker must then initiate the token request itself.
-* The Service Worker must not transmit tokens, authorization codes or PKCE code verifier to the application.
+* The Service Worker must not transmit tokens, authorization codes, or PKCE code verifier to the application.
 * The Service Worker must block authorization requests and token requests initiating from the application in order to avoid any front-end side-channel for getting tokens. The only way of starting the authorization flow should be through the service worker. This protects against re-authorization from XSS-injected code.
 * The user must register the Service Worker before running any code interacting with the user.
-  
-  
 
 ##### Obtain a JWT using Backend-For-Frontend (BFF) Proxy
 
@@ -143,35 +174,26 @@
 * The BFF proxy keeps the access token and refresh token stored internally and creates a separate session with the browser-based application via a traditional browser cookie **(6)**.
 * When the browser-based application wants to make a request to the Resource Server, it instead makes the request to the BFF proxy **(7)**.
 * The BFF proxy will make the request with the access token to the Resource Server **(8)** and **(9)** and forward the response **(10)** back to the browser.
-  
-  
 
 ##### Obtain a JWT using Token-Mediating Backend
 
 * A proposal for implementing the TMI-BFF can be found here: [Token Mediating and session Information Backend For Frontend](https://datatracker.ietf.org/doc/html/draft-bertocci-oauth2-tmi-bff-01).
-* This is an alternative to a ful BFF, where all all resource requests are done directly through the browser, the token-mediating backend only handles obtaining the tokens and forwards them to the browser.
+* This is an alternative to a ful BFF, where all all resource requests are done directly through the browser, the token-mediating backend only handles getting the tokens and forwards them to the browser.
 * Routing every API call through a backend can be expensive in terms of performance and latency. Routing only the token acquisition through a backend means fewer requests are made to the backend, improving performance and reducing latency of the requests made from the frontend, and reducing the amount of infrastructure needed in the backend.
 * The Token-Mediating Backend should be considered a confidential client, and issued its own client secret.
 * The Token-Mediating Backend should use the OAuth 2.0 Authorization Code grant with PKCE to initiate a request for an access token.
 * The connection between the browser and the Token-Mediating Backend should be a session cookie provided by the BFF proxy.
-* The frontend should not persist tokens in local storage or similar mechanisms; instead, the frontend shouldstore tokens only in memory, and make a new request to the backend if no tokens exist. This provides fewer attack vectors for token exfiltration should an XSS attack be successful.
+* The frontend should not persist tokens in local storage or similar mechanisms; instead, the frontend should store tokens only in memory and make a new request to the backend if no tokens exist. This provides fewer attack vectors for token exfiltration should an XSS attack be successful.
 * The Token-Mediating Backend should cache the access token and refresh token.
 
 <img title="browser-based application using tmi-bff" src="./md-resources/browser-based-tmi-bff.drawio.svg" alt="browser-based application using tmi-bff" data-align="center">
 
 1. The frontend presents to the backend a request for an access token for a given resource server
-
 2. If the backend does not already have a suitable access token obtained in the previous flow and cached, it requests to the authorization server a new access token with the required characteristics (eventually using the refresh token).
-
 3. The authorization server returns the requested token and any additional information according to the grant used.
-
 4. The backend returns the requested access token to the browser-based application
-
 5. The browser-based application presents the access token to the resource server
-
 6. The resource server validates the incoming token and returns the protected resource
-   
-   
 
 ## Native Applications
 
@@ -181,7 +203,7 @@
 ##### Obtain a JWT token using the browser ***[Recommended]***
 
 * See more: [OAuth 2.0 for native applications](https://datatracker.ietf.org/doc/html/rfc8252).
-* This process is similar to the way of obtaining a JWT token in a browser-based application.
+* This process is similar to the way of getting a JWT token in a browser-based application.
 * The advantage of this process is that the authorization requests that use the browser are more secure and can take advantage of the user's authentication state. This enables the use of the authentication session in the browser to enable single sign-on, as users don't need to authenticate to the authorization server each time they use a new app.
 * It is recommended to use the system browser instead of a browser window embedded in the application, it offers better security.
 
@@ -193,31 +215,27 @@
 4. The client receives the authorization code from the redirect URI.
 5. The client app presents the authorization code at the token endpoint.
 6. The token endpoint validates the authorization code and issues the tokens requested.
-   
-   
 
 ##### Obtain a JWT token without using the browser
 
 * See more: [OAuth 2.0 for First-Party Applications](https://datatracker.ietf.org/doc/draft-parecki-oauth-first-party-apps/).
 * The client makes a POST request to the authorization challenge endpoint, sending some info, such as username.
 * The authorization server determines if the information received is enough and:
-  * Either reponds with an error, requesting additional info, to which the client must respond with the requested info. This back and forth can happen multiple times.
+  * Either responds with an error, requesting additional info, to which the client must respond with the requested info. This back and forth can happen multiple times.
   * Either it returns an authorization code.
-* The client sends the authorization code received to obtain a token from the Token endpoint.
+* The client sends the authorization code received to get a token from the Token endpoint.
 * The authorization server sends an Access Token.
 
 <img title="native application without using browser flowchart" src="./md-resources/native-without-browser.drawio.svg" alt="native application without using browser flowchart" data-align="center">
 
 1. The first-party client starts the flow, by presenting the user with a "sign in" button, or collecting information from the user, such as their email address or username.
 2. The client initiates the authorization request by making a POST request to the Authorization Challenge Endpoint, optionally with information collected from the user (e.g., email or username).
-3. The authorization server determines whether the information provided to the Authorization Challenge Endpoint is sufficient to grant authorization, and either responds with an authorization code or responds with an error. In this example, it determines that additional information is needed and responds with an error. 
-   The error may contain additional information to guide the Client on what information to collect next. This pattern of collecting information, submitting it to the Authorization Challenge Endpoint and then receiving an error or authorization code may repeat several times.
+3. The authorization server determines whether the information provided to the Authorization Challenge Endpoint is sufficient to grant authorization and either responds with an authorization code or responds with an error. In this example, it determines that additional information is needed and responds with an error. 
+   The error may contain additional information to guide the Client on what information to collect next. This pattern of collecting information, submitting it to the Authorization Challenge Endpoint, and then receiving an error or authorization code may repeat several times.
 4. The client gathers additional information (e.g., signed passkey challenge or one-time code from email) and makes a POST request to the Authorization Challenge Endpoint.
 5. The Authorization Challenge Endpoint returns an authorization code.
 6. The client sends the authorization code received in step **(5)** to obtain a token from the Token Endpoint.
 7. The Authorization Server returns an Access Token from the Token Endpoint.
-   
-   
 
 ##### Single Sign-On (SSO)
 
@@ -245,7 +263,7 @@
 
 * See more: [OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/rfc8628/).
 * The client initiates the authorization flow by requesting a set of verification codes from the authorization server with an HTTP POST request to the authorization endpoint. The client includes in the request the client ID and the scope.
-* The authorization server generates a unique device verification code and an end-user code, that are valid for a limited time, as well as the verification URI to be visited by the user on their secondary device (such as in a browser or on their mobile phone).
+* The authorization server generates a unique device verification code and an end-user code that are valid for a limited time. It also generates the verification URI to be visited by the user on their secondary device (such as in a browser or on their mobile phone).
 * The client displays the user code and verification URI and instructs the user to visit the URI and enter the user code.
 * During this time, the client continuously polls the token endpoint with the device code until the user completes the interaction, the code expires, or another error occurs.
 * After displaying instructions to the user, the client creates an access token request and sends it to the token endpoint.
@@ -253,7 +271,7 @@
   * Authorization pending: the authorization request is still pending for the user to complete all the steps on the secondary device.
   * Slow down: the authorization request is still pending, but the polling interval must be increased by 5 seconds for this and all subsequent requests.
   * Access denied: the authorization request was denied.
-  * Expired token: the device code has expired and the authorization session must be concluded. The client may commence a new device authorization request but should wait for user interaction before restarting, to avoid unnecessary polling.
+  * Expired token: the device code has expired and the authorization session must be concluded. The client may commence a new device authorization request but should wait for user interaction before restarting to avoid unnecessary polling.
 
 <img title="input constrained devices flowchart" src="./md-resources/input-constrained-devices.drawio.svg" alt="input constrained devices flowchart" data-align="center">
 
@@ -263,8 +281,6 @@
 4. The authorization server authenticates the end user (via the user agent), and prompts the user to input the user code provided by the device client. The authorization server validates the user code provided by the user, and prompts the user to accept or decline the request.
 5. While the end user reviews the client's request (**step 4**), the client repeatedly polls the authorization server to find out if the user completed the user authorization step. The client includes the device code and its client identifier.
 6. The authorization server validates the device code provided by the client and responds with the access token if the client is granted access, an error if they are denied access, or an indication that the client should continue to poll.
-   
-   
 
 # Security
 
@@ -272,40 +288,24 @@
 * [Recommendations](#recommendations)
 * [JWT Security Best Practices](https://curity.io/resources/learn/jwt-best-practices/#:~:text=JWT%20Security%20Best%20Practices%201%201.%20JWTs%20Used,Best%20Practices%20for%20Using%20Claims%20...%20More%20items)
 
-
-
 # Identity Servers
 
 ## Microsoft IdentityServer (.Net 8+)
 
 * It's free
-
 * Only provides an API, no GUI support included
-
 * Cannot customize the endpoints or the way they work. You can only deactivate all IdentityServer endpoints and implement your own.
-
 * *[TODO]*
-
-
 
 ## Duende IdentityServer
 
 * *[TODO]*
 
-
-
 ## KeyCloak
 
 * Free and open-source
-
 * *[TODO]*
-
-
 
 ## Auth0
 
 * *[TODO]*
-
-
-
-

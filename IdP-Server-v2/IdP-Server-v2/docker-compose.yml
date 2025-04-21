@@ -1,0 +1,12 @@
+﻿services:
+  idp-server-v2:
+    image: idp-server-v2
+    build:
+      context: .
+      dockerfile: IdP-Server-v2/IdP-Server-v2/Dockerfile
+
+  idp-server-v2.client:
+    image: idp-server-v2.client
+    build:
+      context: .
+      dockerfile: IdP-Server-v2/IdP-Server-v2.Client/Dockerfile

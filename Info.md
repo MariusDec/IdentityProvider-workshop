@@ -273,3 +273,39 @@
 * [JWT Security Best Practices](https://curity.io/resources/learn/jwt-best-practices/#:~:text=JWT%20Security%20Best%20Practices%201%201.%20JWTs%20Used,Best%20Practices%20for%20Using%20Claims%20...%20More%20items)
 
 
+
+# Identity Servers
+
+## Microsoft IdentityServer (.Net 8+)
+
+* It's free
+
+* Only provides an API, no GUI support included
+
+* Cannot customize the endpoints or the way they work. You can only deactivate all IdentityServer endpoints and implement your own.
+
+* *[TODO]*
+
+
+
+## Duende IdentityServer
+
+* *[TODO]*
+
+
+
+## KeyCloak
+
+* Free and open-source
+
+* *[TODO]*
+
+
+
+## Auth0
+
+* *[TODO]*
+
+
+
+

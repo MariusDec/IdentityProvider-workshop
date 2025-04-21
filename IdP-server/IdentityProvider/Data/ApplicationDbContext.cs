@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IdentityProvider.Data;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User>(options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration) : IdentityDbContext<User>(options)
 {
     protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-        options.UseSqlite("DataSource = identityDb; Cache=Shared");
+        options.UseSqlite(configuration.GetConnectionString("UserStore"));
 }

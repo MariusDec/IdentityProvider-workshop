@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using IdentityProvider.Data;
 using IdentityProvider.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +43,26 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 builder.Services.AddDbContext<ApplicationDbContext>();
+
+// builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.Cookie.HttpOnly = true;
+
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireNonAlphanumeric = false;
+});
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
@@ -80,6 +101,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapGroup("/identity").MapIdentityApi<User>();
+
+//app.UseAuthorization();
+//app.UseAuthentication();
 
 var summaries = new[]
 {

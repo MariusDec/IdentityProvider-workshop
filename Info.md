@@ -198,7 +198,7 @@
 ## Native Applications
 
 * For a good experience, mobile apps should not use redirect-based flow, although redirect-based flow has some security and convenience advantages.
-* A native application might instead prefer to use Single Sign-On, instead of short lived tokens.
+* A native application might instead prefer to use Single Sign-On, instead of short-lived tokens.
 
 ##### Obtain a JWT token using the browser ***[Recommended]***
 
@@ -239,8 +239,13 @@
 
 ##### Single Sign-On (SSO)
 
-* See more: ***[TODO]***
-* 
+* See more: [A Complete Guide to Implementing Single Sign-on](https://frontegg.com/blog/a-complete-guide-to-implementing-single-sign-on)
+
+###### Useful Links
+
+* [Getting Started with Identity and Single Sign-on (SSO)](https://www.identityserver.com/learning-paths/identityserver)
+* [Single Sign-On (SSO) Implementation: A Practical Approach](https://metizsoftinc.com/blog/single-sign-on-sso-implementation-a-practical-approach/)
+* [Microsoft identity platform best practices and recommendations](https://learn.microsoft.com/en-us/entra/identity-platform/identity-platform-integration-checklist)
 
 ## Input constrained devices
 
